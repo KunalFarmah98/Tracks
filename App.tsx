@@ -1,21 +1,21 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import React from 'react';
-import { useState } from 'react';
+import React, { useContext } from 'react';
 import BottomTabNavigator from './src/navigators/BottomTabNavigator';
 import { SigninStackScreen, SignupStackScreen } from './src/navigators/StackNavigator';
+import { Context as AuthContext, Provider as AuthProvider } from './src/context/AuthContext';
 
 const App = () => {
 
-  const [isSignedIn, setSignedIn] = useState(false);
-
   const MainStack = createStackNavigator();
   return (
-    <NavigationContainer>
+    <AuthContext.Consumer>
 
-      <MainStack.Navigator>
-        {isSignedIn == false ? (
-          <>
+      {state => state.token == null ? (
+        <NavigationContainer>
+
+          <MainStack.Navigator>
+
             <MainStack.Screen
               name='SignUp'
               component={SignupStackScreen}
@@ -29,18 +29,25 @@ const App = () => {
               options={({ route }) => ({
                 headerShown: false,
               })} />
-          </>
-        ) :
-          (
-            <MainStack.Screen
-              name='Tabs'
-              component={BottomTabNavigator} />
-          )
-        }
-      </MainStack.Navigator>
 
-    </NavigationContainer>
+          </MainStack.Navigator>
+        </NavigationContainer>
+
+      ) :
+        (
+          <NavigationContainer>
+            <BottomTabNavigator />
+          </NavigationContainer>
+        )
+      }
+    </AuthContext.Consumer>
   );
 };
 
-export default App;
+export default () => {
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  )
+}

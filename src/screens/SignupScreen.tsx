@@ -1,16 +1,16 @@
 import React from 'react';
+import { useContext } from 'react';
 import { useState } from 'react';
-import { StyleSheet, Touchable, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Input, Button, Text } from 'react-native-elements';
+import { Context as AuthContext } from '../context/AuthContext';
 
 const SignupScreen = ({ navigation }) => {
 
-    const [email, setEmail] = useState('');
-    const [pass, setPass] = useState('');
+    const { state, signUp } = useContext(AuthContext);
 
-    const signUp = () => {
-
-    }
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     return (
 
@@ -25,14 +25,15 @@ const SignupScreen = ({ navigation }) => {
                 onChangeText={setEmail} />
 
             <Input label="Password"
-                value={pass}
-                onChangeText={setPass}
+                value={password}
+                onChangeText={setPassword}
                 secureTextEntry
                 autoCapitalize="none"
-                autoCompleteType="off"
                 autoCorrect={false} />
 
-            <Button title="Sign Up" onPress={signUp} style={{ marginTop: 40, marginHorizontal: 20 }} />
+            <Button title="Sign Up" onPress={() => signUp({ email, password })} style={{ marginTop: 40, marginHorizontal: 20 }} />
+
+            {state.errorMessage != '' ? <Text style={styles.error}>{state.errorMessage}</Text> : null}
 
             <Text style={[styles.signin, { marginTop: 50 }]}>Already Have an Account?</Text>
             <TouchableOpacity onPress={() => navigation.replace('SignIn')}>
@@ -65,6 +66,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         alignSelf: 'center',
         margin: 10
+    },
+    error: {
+        alignSelf: 'center',
+        marginTop: 30,
+        color: 'red',
+        fontSize: 16
     }
 });
 export default SignupScreen;
