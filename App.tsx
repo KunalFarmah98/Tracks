@@ -1,46 +1,24 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-import React, { useContext } from 'react';
-import BottomTabNavigator from './src/navigators/BottomTabNavigator';
-import { SigninStackScreen, SignupStackScreen } from './src/navigators/StackNavigator';
+import React from 'react';
 import { Context as AuthContext, Provider as AuthProvider } from './src/context/AuthContext';
+import AuthComponent from './src/components/AuthComponent';
+import AppComponent from './src/components/AppComponent';
+import { useContext } from 'react';
+import { useEffect } from 'react';
 
 const App = () => {
 
-  const MainStack = createStackNavigator();
+
+  const { state, checkSignIn } = useContext(AuthContext);
+  console.log(state.token);
+
+  useEffect(()=>{
+    checkSignIn();
+  },[]);
+
   return (
-    <AuthContext.Consumer>
-
-      {state => state.token == null ? (
-        <NavigationContainer>
-
-          <MainStack.Navigator>
-
-            <MainStack.Screen
-              name='SignUp'
-              component={SignupStackScreen}
-              options={({ route }) => ({
-                headerShown: false,
-              })} />
-
-            <MainStack.Screen
-              name='SignIn'
-              component={SigninStackScreen}
-              options={({ route }) => ({
-                headerShown: false,
-              })} />
-
-          </MainStack.Navigator>
-        </NavigationContainer>
-
-      ) :
-        (
-          <NavigationContainer>
-            <BottomTabNavigator />
-          </NavigationContainer>
-        )
-      }
-    </AuthContext.Consumer>
+    (state.loading)?null:
+    (state.token === null) ? <AuthComponent />
+      :<AppComponent />
   );
 };
 

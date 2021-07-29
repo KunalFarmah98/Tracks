@@ -15,54 +15,54 @@ const TrackStack = createStackNavigator();
 // const TrackCreateStack = createStackNavigator();
 // const AccountStack = createStackNavigator();
 
-const SigninStackScreen = ({ navigation }) => {
-    return (
-        <SigninStack.Navigator initialRouteName='SignIn'>
-            <SigninStack.Screen
-                name='SignIn'
-                component={SigninScreen}
-                options={({ route }) => ({
-                    headerShown: false,
-                })}
-            />
-            <SigninStack.Screen
-                name='SignUp'
-                component={SignupScreen}
-                options={({ route }) => ({
-                    headerShown: false,
-                })}
-            />
+// const SigninStackScreen = ({ navigation }) => {
+//     return (
+//         <SigninStack.Navigator initialRouteName='SignIn'>
+//             <SigninStack.Screen
+//                 name='SignIn'
+//                 component={SigninScreen}
+//                 options={({ route }) => ({
+//                     headerShown: false,
+//                 })}
+//             />
+//             <SigninStack.Screen
+//                 name='SignUp'
+//                 component={SignupScreen}
+//                 options={({ route }) => ({
+//                     headerShown: false,
+//                 })}
+//             />
 
-        </SigninStack.Navigator>
-    );
+//         </SigninStack.Navigator>
+//     );
 
-};
+// };
 
-const SignupStackScreen = ({ navigation }) => {
+// const SignupStackScreen = ({ navigation }) => {
 
-    return (
-        <SignupStack.Navigator initialRouteName='SignUp'>
+//     return (
+//         <SignupStack.Navigator initialRouteName='SignUp'>
 
-            <SignupStack.Screen
-                name='SignUp'
-                component={SignupScreen}
-                options={({ route }) => ({
-                    headerShown: false,
-                })}
-            />
+//             <SignupStack.Screen
+//                 name='SignUp'
+//                 component={SignupScreen}
+//                 options={({ route }) => ({
+//                     headerShown: false,
+//                 })}
+//             />
 
-            <SignupStack.Screen
-                name='SignIn'
-                component={SigninScreen}
-                options={({ route }) => ({
-                    headerShown: false,
-                })}
-            />
+//             <SignupStack.Screen
+//                 name='SignIn'
+//                 component={SigninScreen}
+//                 options={({ route }) => ({
+//                     headerShown: false,
+//                 })}
+//             />
 
-        </SignupStack.Navigator>
-    );
+//         </SignupStack.Navigator>
+//     );
 
-};
+// };
 const TrackStackScreen = () => {
     return (
         <TrackStack.Navigator>
@@ -84,4 +84,4 @@ const TrackStackScreen = () => {
 
 
 
-export { TrackStackScreen, SigninStackScreen, SignupStackScreen };
+export { TrackStackScreen}; //, SigninStackScreen, SignupStackScreen };

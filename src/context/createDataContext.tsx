@@ -2,7 +2,7 @@ import React, {useReducer} from "react";
 
 
 export default(reducer, actions, defaultValue) => {
-    const Context = React.createContext({});
+    const Context = React.createContext({isSignedIn:false, token: null, errorMessage: ''});
 
     const Provider = ({children})=>{
         const [state,dispatch] = useReducer(reducer, defaultValue);
